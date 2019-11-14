@@ -16,7 +16,9 @@ return db('smash').where({id:id}).update(change)
 };
 
 function insert(body){
-    return db('smash').insert(body);
+    return db('smash').insert(body, 'id').then(([id]) =>{
+        return db('smash').where({id}).first()
+    });
 };
 
 function remove(id){

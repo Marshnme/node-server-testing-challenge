@@ -17,17 +17,33 @@ server.get('/smash', (req, res) => {
 });
 
 server.post('/smash', (req, res) => {
-    res.status(200).json({ api: 'up' });
+    const body = req.body
+    smash.insert(body)
+    .then(inserted => {
+        res.status(200).json(inserted)
+    })
+    .catch(err => res.status(500).json({message:"error inserting char"}))
 });
 
 
 server.put('/smash/:id', (req, res) => {
-    res.status(200).json({ api: 'up' });
+    const body = req.body;
+    const id = req.params.id;
+    smash.update(id,body)
+    .then(updated => {
+        res.status(200).json(updated)
+    })
+    .catch(err => res.status(500).json({message:"error updating char"}))
 });
 
 
 server.delete('/smash/:id', (req, res) => {
-    res.status(200).json({ api: 'up' });
+    const id = req.params.id;
+    smash.remove(id)
+    .then(removed => {
+        res.status(200).json(removed)
+    })
+    .catch(err => res.status(500).json({message:"error removing char"}))
 });
 
 
